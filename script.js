@@ -214,7 +214,6 @@ if(limitQuery && limitQuery.length > 0){
 
 var sortedQuery = getParameterByName("sorted")
 if(sortedQuery && sortedQuery.toLowerCase() == "true"){
-	console.log("SORTED!")
 	deck.sort()
 }
 
