@@ -177,5 +177,25 @@ class CardDeck {
 // Create a new card deck.
 const deck = new CardDeck(".deck", ".hand");
 
+const getParameterByName  = (name, url = window.location.href) => {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+var cardsQuery = getParameterByName("cards")
+if(cardsQuery && cardsQuery.length > 0) {
+	cardsQuery = cardsQuery.split(' ')
+	cardsQuery.forEach(card => {
+		console.log({card})
+		deck.draw(card)
+	})
+}
+const spades = deck.filter('suit', ['hearts'])
+console.log({spades})
+
 // Take a look at the deck object and its methods.
 console.log(deck);
