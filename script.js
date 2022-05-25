@@ -153,7 +153,8 @@ class CardDeck {
 	}
 
 	filter(cardProp = null, values = []) {
-		this.possibleCards = this.possibleCards.filter((card) => values.includes(card[cardProp]));
+		console.log({cardProp, values})
+		this.possibleCards = this.possibleCards.filter((card) => values.includes(card[cardProp].toString()));
 	}
 
 	limit(number) {
@@ -190,12 +191,34 @@ var cardsQuery = getParameterByName("cards")
 if(cardsQuery && cardsQuery.length > 0) {
 	cardsQuery = cardsQuery.split(' ')
 	cardsQuery.forEach(card => {
-		console.log({card})
 		deck.draw(card)
 	})
 }
-const spades = deck.filter('suit', ['hearts'])
-console.log({spades})
+
+var suitsQuery = getParameterByName("suits")
+if(suitsQuery && suitsQuery.length > 0){
+	suitsQuery = suitsQuery.split(' ')
+	deck.filter("suit", suitsQuery)
+}
+
+var ranksQuery = getParameterByName("ranks")
+if(ranksQuery && ranksQuery.length > 0){
+	ranksQuery = ranksQuery.split(' ')
+	deck.filter("rank", ranksQuery)
+}
+
+var limitQuery = getParameterByName("limit")
+if(limitQuery && limitQuery.length > 0){
+	deck.limit(4)
+}
+
+var sortedQuery = getParameterByName("sorted")
+if(sortedQuery && sortedQuery.toLowerCase() == "true"){
+	console.log("SORTED!")
+	deck.sort()
+}
+
+deck.drawFiltered()
 
 // Take a look at the deck object and its methods.
 console.log(deck);
