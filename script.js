@@ -153,7 +153,6 @@ class CardDeck {
 	}
 
 	filter(cardProp = null, values = []) {
-		console.log({cardProp, values})
 		this.possibleCards = this.possibleCards.filter((card) => values.includes(card[cardProp].toString()));
 	}
 
